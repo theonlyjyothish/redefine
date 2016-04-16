@@ -1,0 +1,8 @@
+#!/bin/bash
+
+Server_IP=`curl https://canhazip.com`
+
+sudo sed -i '/Thisisforreplacingserverip/a $servers->setValue('"'server'"','"'host'"','"'$Server_IP'"');' /etc/phpldapadmin/config.php
+
+sudo sed -i '/inputserverip/a ServerName '$Server_IP'' /etc/apache2/sites-enabled/000-default.conf
+sudo sed -i '/IP_to/a Redirect permanent /myldap https://'$Server_IP'/myldap' /etc/apache2/sites-enabled/000-default.conf
